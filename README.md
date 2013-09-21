@@ -9,9 +9,18 @@ Unfortunately, the efficiency disappears when we go about integrating our Jade t
 
 In order to keep using Jade, we need to compile it down to HTML. We would then need to integrate the resultant HTML into Django Templates and this just puts us back where we started, only marginally ahead of the game if we had written in just pHTML to start with.
 
-So what to do? Jade by its very nature relies on indentation for its syntax and converts the first element into an HTML element. 
+So what to do? Jade by its very nature relies on indentation for its syntax and converts the first element into an HTML element. Any content written after the first element and a ' ' (space) is considered plain text content. In addition, Jade sees symbols, such as "{%" and "{{", as the start of plain text[2]. This means that we can jsut add Django Template tags directly into the Jade code.
+
+Awesome! But...
+
+White space is important, so by putting in Django templatetags directly into the code, we lose our sense of indentation and hierarchy when we begin to use multiple Django templatetags.
+
+Jade mixins that output Django templatetags are the answer. Jade mixins can take and expand block content. So any code indented below a Jade mixin is brought into that mixin and can be used via the Jade `block` declaration. Problem solved! We get to keep our nice hierarchy and indentation, remain readable, and keep with Jade and Python syntax styles.
+
+Read on for whats included-
 
 [1] Jade is a cousin to HTML, it needs to be compiled to become actual HTML
+[2] Jade uses `mixin` or `+` to call functions/mixins and uses `#{ variable }` to interpolate.
 
 ## Included Django Tags
 
@@ -21,6 +30,7 @@ So what to do? Jade by its very nature relies on indentation for its syntax and 
 * extends (`filename`)
 * load (`tag_library_1`, `tag_library_2`)
 * static (`resource`, `context_variable_name`)
+* url (`resource`, `context_variable_name`)
 * block (`block_name`)
 * comment
 * _ (`tag_name`, `expression`)
@@ -117,7 +127,7 @@ Compatible with Django-CMS 3
     ```
       div.wheres-the-awesome
         a( href="/bring-it")
-          +include('brignit.html')
+          +include('bringit.html')
     ```
   
     In Jade, whitespace is important, so this is also a correct and accepted way:
