@@ -1,0 +1,115 @@
+//- DJANGO MIXINS
+mixin if(cmd)
+  {% if !{ cmd } %}
+  block
+  {% endif %}
+
+mixin for(cmd)
+  {% for !{ cmd } %}
+  block
+  {% endfor %}
+
+mixin with(cmd)
+  {% with !{ cmd } %}
+  block
+  {% endwith %}
+
+mixin extends(value)
+  {% extends "!{ value }" %}
+
+mixin load(v1, v2)
+  - v1.push(v2)
+  {% load !{ v1.join(" ") } %}
+
+mixin static(value)
+  {% static '!{ value }' %}
+
+mixin block(value)
+  {% block !{ value } %}
+  block
+  {% endblock %}
+
+mixin comment
+  {% comment %}
+  block
+  {% endcomment %}
+
+mixin _(tag, value)
+  {% !{ tag } !{ value } %}
+
+
+mixin __(tag, value)
+  {% !{ tag } !{ value } %}
+  {% end!{ tag } %}
+
+
+
+
+
+
+//- DJANGO-CMS MIXINS
+mixin placeholder(value)
+  {% placeholder "!{ value }" %}
+
+
+mixin placeholder_or(value)
+  {% placeholder "!{ value }" or %}
+  block
+  {% endplaceholder %}
+
+
+mixin placeholder_inherit(value)
+  {% placeholder "!{ value }" inherit %}
+
+
+mixin placeholder_inherit_or(value)
+  {% placeholder "!{ value }" inherit or %}
+  block
+  {% endplaceholder %}
+
+
+mixin show_placeholder(value)
+  {% show_placeholder !{ value } %}
+
+
+mixin show_editable_page_title()
+  {% show_editable_page_title %}
+
+
+mixin show_uncached_placeholder(value)
+  {% show_uncached_placeholder !{ value } %}
+
+
+mixin page_attribute(value)
+  {% page_attribute !{ value } %}
+
+
+mixin show_menu(value)
+  {% show_menu !{ value } %}
+
+
+mixin show_menu_below_id(value)
+  {% show_menu_below_id !{ value } %}
+
+
+mixin show_sub_menu(value)
+  {% show_sub_menu !{ value } %}
+
+
+mixin show_breadcrumb(value)
+  {% show_breadcrumb !{ value } %}
+
+mixin render_block(value)
+  {% render_block "!{ value }" %}
+
+
+mixin render_plugin(value)
+  {% render_plugin !{ value } %}
+
+
+mixin cms_toolbar()
+  {% cms_toolbar %}
+
+
+mixin stack(value)
+  {% stack "!{ value }" %}
